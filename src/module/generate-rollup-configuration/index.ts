@@ -264,6 +264,14 @@ const generateRollupPluginArray = (
       ]
     }),
     jsonPlugin(),
+    ...(transpile
+      ? [
+          babelPlugin({
+            extensions: [".js", ".ts"],
+            runtimeHelpers: true
+          })
+        ]
+      : []),
     ...(strip
       ? [
           stripPlugin({
@@ -275,14 +283,6 @@ const generateRollupPluginArray = (
             functions: [],
             include: ["**/*.js", "**/*.ts"],
             labels: ["stripInProduction"]
-          })
-        ]
-      : []),
-    ...(transpile
-      ? [
-          babelPlugin({
-            extensions: [".js", ".ts"],
-            runtimeHelpers: true
           })
         ]
       : []),
